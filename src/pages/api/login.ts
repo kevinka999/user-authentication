@@ -1,33 +1,38 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { connectDb } from '../../database/connectDb';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
+import cookie from 'cookie';
 
-interface userLoginData {
-    email: string;
-    password: string;
-}
+import { connectDb } from '../../database/connectDb';
+import { UserLoginData } from '../../contexts/UserContext';
 
 interface NextLoginRequest extends NextApiRequest{
-    body: userLoginData;
+    body: UserLoginData;
 }
 
 export default async function login(req: NextLoginRequest, res: NextApiResponse) {
     if (req.method === 'POST'){
         const db = await connectDb();
         
-        const user = await db.get(
-            'SELECT * FROM user WHERE email = ?', 
-            [ req.body.email ]
-        );
+        const user = await db.get('SELECT * FROM user WHERE email = ?', [
+            req.body.email 
+        ]);
 
         compare(req.body.password, user.password, (error, result) => {
             if(!error && result){
                 const jwt = sign({
-                    userName: user.name
+                    userId: user.id
                 }, process.env.JWT_SECRET, {expiresIn: '1h'});
+                
+                res.setHeader('Set-Cookie', cookie.serialize('authToken', jwt, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV !== 'development',
+                    sameSite: 'strict',
+                    maxAge: 3600,
+                    path: '/'
+                }))
 
-                res.status(200).json({authToken: jwt});
+                res.status(200).json({message: 'Welcome!'});
             }
             else {
                 res.status(405).json({message: 'Something wrong. try again!'});

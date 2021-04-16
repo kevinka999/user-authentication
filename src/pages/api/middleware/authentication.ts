@@ -3,7 +3,7 @@ import { verify } from 'jsonwebtoken';
 
 export function isAuthenticated(fn: NextApiHandler) {
     return async (req: NextApiRequest, res: NextApiResponse) => {
-        verify(req.headers.authorization!, process.env.JWT_SECRET, async (error, jwtDecoded) => {
+        verify(req.cookies.authToken!, process.env.JWT_SECRET, async (error, jwtDecoded) => {
             if (!error && jwtDecoded){
                 return await fn(req, res);
             }
