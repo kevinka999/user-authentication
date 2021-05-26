@@ -1,7 +1,7 @@
 import { Grid } from '@material-ui/core';
 import { UserProvider } from '../contexts/UserContext';
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
   return(
     <UserProvider>
       <Grid container direction="column" justify="center" alignItems="center">
@@ -9,6 +9,4 @@ function MyApp({ Component, pageProps }) {
       </Grid>
     </UserProvider>
   ) 
-} 
-
-export default MyApp
+}

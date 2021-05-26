@@ -3,12 +3,14 @@ import { UserContext } from '../../contexts/UserContext';
 import { Card, CardContent, CardActions, Typography, Button } from '@material-ui/core'
 
 export default function Main() {
-    const { userName } = useContext(UserContext);
+    const { userName, userEmail, logoutUser } = useContext(UserContext);
 
     return(
         <Card>
             <CardContent>
-                <Typography variant="h4" gutterBottom={true}>Hello {userName}</Typography>
+                <Typography variant="h4" gutterBottom={true}>
+                    Hello {userName} - {userEmail}
+                </Typography>
                 <Typography variant="body1">Your data is complete safe here. So don't worry and enjoy.</Typography>
 
                 <hr/>
@@ -18,7 +20,7 @@ export default function Main() {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button variant="outlined" color="secondary" size="small">Log-off</Button>
+                <Button variant="outlined" color="secondary" size="small" onClick={logoutUser}>Log-off</Button>
             </CardActions>
         </Card>
     );

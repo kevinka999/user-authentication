@@ -1,8 +1,10 @@
+import { isAuthenticated } from './middleware/authentication'
 import { NextApiRequest, NextApiResponse } from "next";
 import { decode } from 'jsonwebtoken';
-import { connectDb } from '../../database/connectDb';
 
-import { isAuthenticated } from './middleware/authentication'
+import { connectDb } from '../../database/connectDb';
+import { UserData } from '../../contexts/UserContext';
+
 
 export default isAuthenticated(async function user(req: NextApiRequest, res: NextApiResponse) {
     const authToken = req.cookies.authToken;
@@ -13,7 +15,7 @@ export default isAuthenticated(async function user(req: NextApiRequest, res: Nex
         const { payload } = decode(authToken, {complete: true});
         const userId = payload.userId;
 
-        const userInformation = await db.get('SELECT name, email FROM user WHERE id = ?', [
+        const userInformation : UserData = await db.get('SELECT name, email FROM user WHERE id = ?', [
             userId
         ]);
 

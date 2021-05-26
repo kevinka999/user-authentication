@@ -17,7 +17,7 @@ export default async function login(req: NextLoginRequest, res: NextApiResponse)
         const user = await db.get('SELECT * FROM user WHERE email = ?', [
             req.body.email 
         ]);
-
+        
         compare(req.body.password, user.password, (error, result) => {
             if(!error && result){
                 const jwt = sign({
@@ -32,12 +32,12 @@ export default async function login(req: NextLoginRequest, res: NextApiResponse)
                     path: '/'
                 }))
 
-                res.status(200).json({message: 'Welcome!'});
+                res.json({message: 'Welcome!'})
             }
             else {
-                res.status(405).json({message: 'Something wrong. try again!'});
+                res.json({message: 'Something wrong. try again!'})
             }
-        });
+        });   
     }
     else {
         res.status(405).json({message: 'Method not allowed.'})
