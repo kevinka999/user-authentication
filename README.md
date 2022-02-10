@@ -1,30 +1,24 @@
 # User Authentication
-Este projeto foi desenvolvido em prol de estudos na parte de autenticação de usuario em React.js.
+This project was developed for studying purpose about user authentication improvements and how to make it more secure.
 
-## Informações Técnica
-A aplicação foi desenvolvida em cima de uma framework React chamada [Next.js](https://nextjs.org/).
-
-### O que foi utilizado?
+## How it was built and why
+- [Next.js](https://nextjs.org/):
+React.js framework with server rendering and others supports
 - [Typescript](https://www.typescriptlang.org/):
-Superset para criação de interfaces tipadas.
+A javascript superset to get more control over our code
 - [Bcrypt](https://www.npmjs.com/package/bcrypt):
-Lib utilizada para hash de password com mais seguraças.
+Generate password hashes more secure
 - [Json Web Token (JWT)](https://jwt.io/):
-Para criação de token com criptografia utilizada como chave de autenticação.
-- [Cookies](https://www.npmjs.com/package/cookie):
-Lib para serialização e deserialização de cookies
+Token with cryptography for authentications
 
-### Fluxo da Aplicação:
+### Application Flow
 ![Alt text](/public/flow.jpg?raw=true "System Flow")
 
-## Como rodar a aplicação?
-Vamos rodar a aplicação localmente.
-Com [node](https://nodejs.org/en/) instalado, rode o seguinte comando no seu terminal na pasta root.
+## How to run
+With [node](https://nodejs.org/en/) installed, run the following code on the terminal in root project folder
 
 ```bash
 npm run dev
-# Caso utilize Yarn
+# Or if you use Yarn as package manager
 yarn dev
 ```
-
-Abra no seu navegador [http://localhost:3000](http://localhost:3000) para ver o resultado.
